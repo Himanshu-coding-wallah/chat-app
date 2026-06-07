@@ -129,3 +129,18 @@ export const logout = async(req,res)=>{
         })
     }
 }
+
+export const getOtherUsers = async(req, res)=>{
+    try {
+        const loggedInUser = await User.findById(req.user).select("-password")
+        const otherUsers = await User.find({_id: {$ne: loggedInUser._id}}).select("-password")
+
+        return res.status(200).json({
+            otherUsers
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: "other users not found"
+        })
+    }
+}
