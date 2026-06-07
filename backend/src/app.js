@@ -12,7 +12,9 @@ app.use(express.urlencoded({ extended: true }))
 
 // routes
 import userRouter from "./routes/user.route.js"
+import messageRouter from "./routes/message.route.js"
 
 app.use('/api/user', userRouter)
+app.use('/api/message', messageRouter)
 
 export default app
