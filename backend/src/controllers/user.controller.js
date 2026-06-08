@@ -57,11 +57,13 @@ export const register = async(req, res)=>{
 
         return res.status(201).json({
             message: "user is registered",
+            success: true,
             user
         })
         
     } catch (error) {
         return res.status(400).json({
+            success: false,
             error
         })
     }
@@ -70,6 +72,7 @@ export const register = async(req, res)=>{
 export const login = async(req, res)=>{
     try {
         const {email, password} = req.body
+        
         if( !password || !email ){
             return res.status(400).json({
                 message: "All fields are required"
@@ -106,11 +109,13 @@ export const login = async(req, res)=>{
 
         return res.status(201).json({
             message: "user logged in successfully",
+            success: true,
             user
         })
         
     } catch (error) {
         return res.status(400).json({
+            success: false,
             error
         })
     }
@@ -121,10 +126,12 @@ export const logout = async(req,res)=>{
         res.clearCookie("token")
     
         return res.status(200).json({
-            message: "user is logged out"
+            message: "user is logged out",
+            success: true,
         })
     } catch (error) {
         return res.status(400).json({
+            success: false,
             error
         })
     }
@@ -136,11 +143,13 @@ export const getOtherUsers = async(req, res)=>{
         const otherUsers = await User.find({_id: {$ne: loggedInUser._id}}).select("-password")
 
         return res.status(200).json({
-            otherUsers
+            otherUsers,
+            success: true,
         })
     } catch (error) {
         return res.status(400).json({
-            message: "other users not found"
+            message: "other users not found",
+            success: false,
         })
     }
 }

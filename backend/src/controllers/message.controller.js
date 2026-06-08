@@ -30,12 +30,14 @@ export const sendMessage = async(req, res)=>{
 
         // socket io
         return res.status(200).json({
-            message: "new messsage created"
+            message: "new messsage created",
+            success: true,
         })
     } catch (error) {
         console.log(error)
         return res.status(400).json({
-            error: error.message
+            error: error.message,
+            success: false,
         })
     }
 }
@@ -50,12 +52,14 @@ export const getMessage = async(req, res)=>{
         }).populate("messages")
 
         return res.status(200).json({
-            messages: conversation.messages
+            messages: conversation.messages,
+            success: true,
         })
     } catch (error) {
         console.log(error)
         return res.status(400).json({
-            message: error.message
+            message: error.message,
+            success: false,
         })
     }
 }
