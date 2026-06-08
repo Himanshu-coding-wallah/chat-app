@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+body{
+    background-image: url('/landscape.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
