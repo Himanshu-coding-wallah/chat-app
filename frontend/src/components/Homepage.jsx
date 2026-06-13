@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Sidebar from './Sidebar.jsx'
+import MessageContainer from './MessageContainer.jsx'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-const Homepage = () => {
+const HomePage = () => {
+  const { authUser } = useSelector(state => state.user);
+//   console.log(authUser)
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authUser) {
+      navigate("/login");
+    }
+  }, []);
   return (
-    <div>Homepage</div>
+    <div className='flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
+      <Sidebar />
+      <MessageContainer /> 
+    </div>
   )
 }
 
-export default Homepage
+export default HomePage

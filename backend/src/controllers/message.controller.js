@@ -32,6 +32,7 @@ export const sendMessage = async(req, res)=>{
         return res.status(200).json({
             message: "new messsage created",
             success: true,
+            newMessage
         })
     } catch (error) {
         console.log(error)
@@ -47,9 +48,18 @@ export const getMessage = async(req, res)=>{
         const senderId = req.user 
         const receiverId = req.params.id
 
+        console.log(senderId, receiverId)
+
         const conversation = await Conversation.findOne({
             participants: {$all: [senderId, receiverId]}
         }).populate("messages")
+
+        if(!conversation){
+            return res.status(400).json({
+                message: "convo not found",
+                success: false
+            })
+        }
 
         return res.status(200).json({
             messages: conversation.messages,
